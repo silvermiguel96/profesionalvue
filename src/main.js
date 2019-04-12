@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
+// import Registro from './Registro.vue'
 
 new Vue({
-  el: '#app',
+  el: '#registro',
   render: h => h(App)
 })
