@@ -16,7 +16,8 @@ export default {
     return {
       name: '',
       lastName: '',
-      birthday: ''
+      birthday: '',
+      years: ''
     }
   },
   computed: {
@@ -31,6 +32,11 @@ export default {
         return years
       }
       return null
+    }
+  },
+  watch: {
+    calcYear (newYear, oldyear) {
+      console.log(newYear, newYear)
     }
   }
 }
