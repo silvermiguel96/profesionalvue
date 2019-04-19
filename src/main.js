@@ -3,6 +3,6 @@ import App from './App.vue'
 // import Registro from './Registro.vue'
 
 new Vue({
-  el: '#registro',
+  el: '#app',
   render: h => h(App)
 })

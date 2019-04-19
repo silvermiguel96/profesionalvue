@@ -1,26 +1,51 @@
 <template lang="pug">
   #app
-    .label Nombre
-    input(v-model="name")
-    button(v-on:click="compilarName") Enviar
-    p {{fullName}}
+    section.section
+      nav.nav.has-shadow
+        .container
+          input.input.is-large(
+            type="text",
+            placeholder="Buscar canciones",
+             v-model="searchQuery")
+          a.button.is-info.is-large(v-on:click="search") Buscar
+          a.button.is-danger.is-large &times;
+          p
+            small {{ searchMessage }}
+      .container.results
+        .columns
+          .cloumn(v-for="t in tracks") {{ t.name }} - {{t.artist}}
 </template>
 <script>
+// Arreglo , Array
+const tracks = [
+  { name: 'Muchacha', artist: 'Luis Alberto Pinto' },
+  { name: 'Hoy aca en el baie', artist: 'El pepo' },
+  { name: 'I was made for loving you', artist: 'pepo' }
+]
 export default {
   name: 'app',
   data () {
     return {
-      name: '',
-      fullName: ''
+      searchQuery: '',
+      tracks: []
+    }
+  },
+  computed: {
+    searchMessage () {
+      return `Encontramos: ${this.tracks.length}`
     }
   },
   methods: {
-    compilarName () {
-      this.fullName = this.name.split(' ').join('-')
+    search () {
+      this.tracks = tracks
     }
   }
 }
 </script>
 <style lang="scss">
-@import './scss/main.scss'
+@import './scss/main.scss';
+
+.results{
+  margin-top: 50px;
+}
 </style>
