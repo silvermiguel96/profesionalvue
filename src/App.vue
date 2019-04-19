@@ -1,5 +1,6 @@
 <template lang="pug">
   #app
+    pm-header
     section.section
       nav.nav.has-shadow
         .container
@@ -7,21 +8,25 @@
             type="text",
             placeholder="Buscar canciones",
              v-model="searchQuery")
-          a.button.is-info.is-large(v-on:click="search") Buscar
-          a.button.is-danger.is-large &times;
+          a.button.is-info(v-on:click="search") Buscar
+          a.button.is-danger &times;
       .container
-      p
-            small {{ searchMessage }}
+        p
+          small {{ searchMessage }}
       .container.results
         .columns
           .column(v-for="t in tracks")
             |{{ t.name }} - {{t.artists[0].name}}
+    pm-footer
 </template>
 <script>
 // Arreglo , Array [{ '': ''}{'':''}]
 import trackservide from './services/track.js'
+import PmFooter from './components/layout/Footer.vue'
+import PmHeader from './components/layout/Header.vue'
 export default {
   name: 'app',
+  components: { PmFooter, PmHeader },
   data () {
     return {
       searchQuery: '',
