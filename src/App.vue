@@ -9,19 +9,17 @@
              v-model="searchQuery")
           a.button.is-info.is-large(v-on:click="search") Buscar
           a.button.is-danger.is-large &times;
-          p
+      .container
+      p
             small {{ searchMessage }}
       .container.results
         .columns
-          .cloumn(v-for="t in tracks") {{ t.name }} - {{t.artist}}
+          .column(v-for="t in tracks")
+            |{{ t.name }} - {{t.artists[0].name}}
 </template>
 <script>
-// Arreglo , Array
-const tracks = [
-  { name: 'Muchacha', artist: 'Luis Alberto Pinto' },
-  { name: 'Hoy aca en el baie', artist: 'El pepo' },
-  { name: 'I was made for loving you', artist: 'pepo' }
-]
+// Arreglo , Array [{ '': ''}{'':''}]
+import trackservide from './services/track.js'
 export default {
   name: 'app',
   data () {
@@ -37,7 +35,11 @@ export default {
   },
   methods: {
     search () {
-      this.tracks = tracks
+      if (!this.searchQuery) { return }
+      trackservide.search(this.searchQuery)
+        .then(res => {
+          this.tracks = res.tracks.items
+        })
     }
   }
 }

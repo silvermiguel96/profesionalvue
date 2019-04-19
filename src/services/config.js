@@ -1,8 +1,5 @@
-import trae from 'trae'
-import configService from './config'
+const configServices = {
+  apiUrl: 'https://platzi-music-api.now.sh/'
+}
 
-const platziMusicService = trae.create({
-  baseUrl: configService.apiUrl
-})
-
-export default platziMusicService
+export default configServices
