@@ -5,7 +5,7 @@
         .container
           .navbar-start
             .navbar-item
-              strong  Platzi Music
+              strong Platzi Music
           .navbar-end.navbar-menu
     .hero-body
       .container.has-text-centered
