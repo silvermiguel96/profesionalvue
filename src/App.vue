@@ -14,7 +14,10 @@
       .container.results
         .columns.is-multiline
           .column.is-one-quarter(v-for="t in tracks")
-            pm-track(v-bind:track="t")
+            pm-track(
+              v-bind:class="{'is-active': t.id == selectedTrack}",
+              v-bind:track="t",
+              v-on:select="setSelectedTrack")
     pm-footer
 </template>
 <script>
@@ -31,7 +34,8 @@ export default {
     return {
       searchQuery: '',
       tracks: [],
-      isLoading: false
+      isLoading: false,
+      selectedTrack: ''
     }
   },
   computed: {
@@ -48,6 +52,9 @@ export default {
           this.tracks = res.tracks.items
           this.isLoading = false
         })
+    },
+    setSelectedTrack (id) {
+      this.selectedTrack = id
     }
   }
 }
@@ -57,5 +64,8 @@ export default {
 
 .results{
   margin-top: 50px;
+}
+.is-active{
+  border: 3px solid #23d160;
 }
 </style>
