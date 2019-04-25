@@ -2,9 +2,18 @@
   #app
     pm-header
 
-    pm-notification(v-show="showNotification")
-      p(slot="body") No se encontraron resultados
-
+    pm-notification(
+      v-show="showNotification",
+      v-bind:type="{ 'is-success' : totalTracks, 'is-danger' : !totalTracks}"
+    )
+      p(
+        v-show="totalTracks",
+        slot="body"
+        ) {{ totalTracks }} encontradas.
+      p(
+        v-show="!totalTracks",
+        slot="body"
+      ) No se econtraron Resultados.
     pm-loader(v-show="isLoading")
     section.section(v-show="!isLoading")
       nav.nav
@@ -19,14 +28,13 @@
       .container
         p
           small {{ searchMessage }}
-
       .container.results
         .columns.is-multiline
           .column.is-one-quarter(v-for="t in tracks")
             pm-track(
-              :class="{ 'is-active': t.id === selectedTrack }",
-              :track="t",
-              @select="setSelectedTrack"
+              v-bind:class="{ 'is-active': t.id === selectedTrack }",
+              v-bind:track="t",
+              v-on@select="setSelectedTrack"
             )
 
     pm-footer
@@ -49,9 +57,10 @@ export default {
     return {
       searchQuery: '',
       tracks: [],
+      selectedTrack: '',
       isLoading: false,
       showNotification: false,
-      selectedTrack: ''
+      totalTracks: 0
     }
   },
   computed: {
@@ -75,10 +84,11 @@ export default {
       this.isLoading = true
       trackservide.search(this.searchQuery)
         .then(res => {
-          console.log(res)
-          this.showNotification = res.tracks.total === 0
+          // console.log(res)
           this.tracks = res.tracks.items
           this.isLoading = false
+          this.totalTracks = res.tracks.total
+          this.showNotification = true
         })
     },
     setSelectedTrack (id) {
