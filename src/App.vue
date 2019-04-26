@@ -32,9 +32,9 @@
         .columns.is-multiline
           .column.is-one-quarter(v-for="t in tracks")
             pm-track(
-              v-bind:class="{ 'is-active': t.id === selectedTrack }",
+              v-bind:class="{ 'is-active': t.id == selectedTrack }",
               v-bind:track="t",
-              v-on@select="setSelectedTrack"
+              v-on:select="setSelectedTrack"
             )
 
     pm-footer
@@ -84,7 +84,7 @@ export default {
       this.isLoading = true
       trackservide.search(this.searchQuery)
         .then(res => {
-          // console.log(res)
+          console.log(res)
           this.tracks = res.tracks.items
           this.isLoading = false
           this.totalTracks = res.tracks.total
